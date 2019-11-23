@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Book" EntityType="Model1.Store.Book" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="Model1.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reserve" EntityType="Model1.Store.Reserve" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BorrowLog" EntityType="Model1.Store.BorrowLog" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Topic" EntityType="Model1.Store.Topic" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Location" EntityType="Model1.Store.Location" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BookStatusSet" EntityType="Model1.Store.BookStatusSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BookReserve" Association="Model1.Store.BookReserve">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="Reserve" EntitySet="Reserve" />
+    </AssociationSet>
+    <AssociationSet Name="ReserveUser" Association="Model1.Store.ReserveUser">
+      <End Role="Reserve" EntitySet="Reserve" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="BookBorrowLog" Association="Model1.Store.BookBorrowLog">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="BorrowLog" EntitySet="BorrowLog" />
+    </AssociationSet>
+    <AssociationSet Name="BorrowLogUser" Association="Model1.Store.BorrowLogUser">
+      <End Role="BorrowLog" EntitySet="BorrowLog" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="BookTopic" Association="Model1.Store.BookTopic">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="Topic" EntitySet="Topic" />
+    </AssociationSet>
+    <AssociationSet Name="BookBookStatus" Association="Model1.Store.BookBookStatus">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="BookStatus" EntitySet="BookStatusSet" />
+    </AssociationSet>
+    <AssociationSet Name="BookLocation" Association="Model1.Store.BookLocation">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="Location" EntitySet="Location" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bookname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Publisher" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PublishPlace" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PublishYear" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Isbn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TopicId" Type="int" Nullable="false" />
+    <Property Name="BookStatusId" Type="int" Nullable="false" />
+    <Property Name="LocationId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IdNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reserve">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReverseTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BookId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BorrowLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BorrowTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ReturnTime" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BookId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BookStatusSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="BookReserve">
+    <End Role="Book" Type="Model1.Store.Book" Multiplicity="1" />
+    <End Role="Reserve" Type="Model1.Store.Reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ReserveUser">
+    <End Role="Reserve" Type="Model1.Store.Reserve" Multiplicity="*" />
+    <End Role="User" Type="Model1.Store.User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookBorrowLog">
+    <End Role="Book" Type="Model1.Store.Book" Multiplicity="1" />
+    <End Role="BorrowLog" Type="Model1.Store.BorrowLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BorrowLog">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BorrowLogUser">
+    <End Role="BorrowLog" Type="Model1.Store.BorrowLog" Multiplicity="*" />
+    <End Role="User" Type="Model1.Store.User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BorrowLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookTopic">
+    <End Role="Book" Type="Model1.Store.Book" Multiplicity="*" />
+    <End Role="Topic" Type="Model1.Store.Topic" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="TopicId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookBookStatus">
+    <End Role="Book" Type="Model1.Store.Book" Multiplicity="*" />
+    <End Role="BookStatus" Type="Model1.Store.BookStatusSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="BookStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="BookStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BookLocation">
+    <End Role="Book" Type="Model1.Store.Book" Multiplicity="*" />
+    <End Role="Location" Type="Model1.Store.Location" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Book" EntityType="Model1.Book" />
+          <EntitySet Name="User" EntityType="Model1.User" />
+          <EntitySet Name="Reserve" EntityType="Model1.Reserve" />
+          <EntitySet Name="BorrowLog" EntityType="Model1.BorrowLog" />
+          <EntitySet Name="Topic" EntityType="Model1.Topic" />
+          <EntitySet Name="Location" EntityType="Model1.Location" />
+          <EntitySet Name="BookStatusSet" EntityType="Model1.BookStatus" />
+          <AssociationSet Name="BookReserve" Association="Model1.BookReserve">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="ReserveUser" Association="Model1.ReserveUser">
+            <End Role="Reserve" EntitySet="Reserve" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="BookBorrowLog" Association="Model1.BookBorrowLog">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BorrowLog" EntitySet="BorrowLog" />
+          </AssociationSet>
+          <AssociationSet Name="BorrowLogUser" Association="Model1.BorrowLogUser">
+            <End Role="BorrowLog" EntitySet="BorrowLog" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="BookTopic" Association="Model1.BookTopic">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Topic" EntitySet="Topic" />
+          </AssociationSet>
+          <AssociationSet Name="BookBookStatus" Association="Model1.BookBookStatus">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="BookStatus" EntitySet="BookStatusSet" />
+          </AssociationSet>
+          <AssociationSet Name="BookLocation" Association="Model1.BookLocation">
+            <End Role="Book" EntitySet="Book" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bookname" Type="String" Nullable="false" />
+          <Property Name="Author" Type="String" Nullable="false" />
+          <Property Name="Publisher" Type="String" Nullable="false" />
+          <Property Name="PublishPlace" Type="String" Nullable="false" />
+          <Property Name="PublishYear" Type="String" Nullable="false" />
+          <Property Name="Isbn" Type="String" Nullable="false" />
+          <NavigationProperty Name="Reserve" Relationship="Model1.BookReserve" FromRole="Book" ToRole="Reserve" />
+          <NavigationProperty Name="BorrowLog" Relationship="Model1.BookBorrowLog" FromRole="Book" ToRole="BorrowLog" />
+          <NavigationProperty Name="Topic" Relationship="Model1.BookTopic" FromRole="Book" ToRole="Topic" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BookStatus" Relationship="Model1.BookBookStatus" FromRole="Book" ToRole="BookStatus" />
+          <Property Name="BookStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Location" Relationship="Model1.BookLocation" FromRole="Book" ToRole="Location" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Account" Type="String" Nullable="false" />
+          <Property Name="IdNumber" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Reserve" Relationship="Model1.ReserveUser" FromRole="User" ToRole="Reserve" />
+          <NavigationProperty Name="BorrowLog" Relationship="Model1.BorrowLogUser" FromRole="User" ToRole="BorrowLog" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReverseTime" Type="String" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookReserve" FromRole="Reserve" ToRole="Book" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model1.ReserveUser" FromRole="Reserve" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BorrowLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BorrowTime" Type="String" Nullable="false" />
+          <Property Name="ReturnTime" Type="String" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookBorrowLog" FromRole="BorrowLog" ToRole="Book" />
+          <Property Name="BookId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model1.BorrowLogUser" FromRole="BorrowLog" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Topic">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookTopic" FromRole="Topic" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookLocation" FromRole="Location" ToRole="Book" />
+        </EntityType>
+        <EntityType Name="BookStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Book" Relationship="Model1.BookBookStatus" FromRole="BookStatus" ToRole="Book" />
+        </EntityType>
+        <Association Name="BookReserve">
+          <End Type="Model1.Book" Role="Book" Multiplicity="1" />
+          <End Type="Model1.Reserve" Role="Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ReserveUser">
+          <End Type="Model1.Reserve" Role="Reserve" Multiplicity="*" />
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookBorrowLog">
+          <End Type="Model1.Book" Role="Book" Multiplicity="1" />
+          <End Type="Model1.BorrowLog" Role="BorrowLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Book">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BorrowLog">
+              <PropertyRef Name="BookId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BorrowLogUser">
+          <End Type="Model1.BorrowLog" Role="BorrowLog" Multiplicity="*" />
+          <End Type="Model1.User" Role="User" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BorrowLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookTopic">
+          <End Type="Model1.Book" Role="Book" Multiplicity="*" />
+          <End Type="Model1.Topic" Role="Topic" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Topic">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="TopicId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookBookStatus">
+          <End Type="Model1.Book" Role="Book" Multiplicity="*" />
+          <End Type="Model1.BookStatus" Role="BookStatus" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="BookStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="BookStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BookLocation">
+          <End Type="Model1.Book" Role="Book" Multiplicity="*" />
+          <End Type="Model1.Location" Role="Location" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="Book">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Book)">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Bookname" ColumnName="Bookname" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+          <ScalarProperty Name="PublishPlace" ColumnName="PublishPlace" />
+          <ScalarProperty Name="PublishYear" ColumnName="PublishYear" />
+          <ScalarProperty Name="Isbn" ColumnName="Isbn" />
+          <ScalarProperty Name="TopicId" ColumnName="TopicId" />
+          <ScalarProperty Name="BookStatusId" ColumnName="BookStatusId" />
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.User)">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="IdNumber" ColumnName="IdNumber" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reserve">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Reserve)">
+        <MappingFragment StoreEntitySet="Reserve">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ReverseTime" ColumnName="ReverseTime" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BorrowLog">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.BorrowLog)">
+        <MappingFragment StoreEntitySet="BorrowLog">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BorrowTime" ColumnName="BorrowTime" />
+          <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Topic">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Topic)">
+        <MappingFragment StoreEntitySet="Topic">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Location)">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookStatusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.BookStatus)">
+        <MappingFragment StoreEntitySet="BookStatusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
